@@ -1,0 +1,85 @@
+{% extends "base.html.twig" %} {% block body %} {% macro is_enabled(feed) %}{%
+if feed.enabled == false %}disabled{% endif %}{% endmacro %}
+
+<p></p>
+
+{{ form_start(form, { attr: { class: "form" } }) }}
+
+{# {{ form_widget(form) }} #}
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        {{ form_widget(form.save) }}
+    </div>
+    {{ form_widget(form.url) }}
+</div>
+
+{{ form_errors(form.url) }}
+{{ form_help(form.url) }}
+
+{{ form_end(form) }}
+
+<div class="main-index-feed-list">
+    {% for feed in feeds %}
+    <div class="{{ _self.is_enabled(feed) }}">
+        <a href="/feed/{{ feed.id }}">
+            <span class="badge badge-pill"></span>
+            <span class="feed-name">{{ feed.displayName }}</span>
+            <span class="feed-path">{{ feed.displayPath }}</span>
+        </a>
+        {#
+        <div class="btn-group" role="group" aria-label="boutons actions">
+            {% if feed.enabled == false %}
+            <button type="button" class="btn btn-outline-success">
+                Activer
+            </button>
+            {% else %}
+            <button type="button" class="btn btn-outline-secondary">
+                Désactiver
+            </button>
+            {% endif %}
+            <button
+                type="button"
+                class="btn btn-danger"
+                data-href="/feed/{{ feed.id }}/delete"
+                data-toggle="modal"
+                data-target="#deleteModal"
+            >
+                Supprimer
+            </button>
+        </div>
+        #}
+    </div>
+    {% endfor %}
+</div>
+
+<div
+    class="modal fade"
+    id="deleteModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Supprimer le feed ?
+            </div>
+            <div class="modal-body">
+                Une fois supprimé, il n'est pas possible de récupérer le feed.
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Annuler
+                </button>
+                <a class="btn btn-primary btn-ok">Confirmer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

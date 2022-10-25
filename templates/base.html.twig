@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            {% block title %}Rss2Email
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}"/> {% block stylesheets %}{% endblock %}
+        </head>
+        <body>
+            {% if app.user %}
+                <header class="navbar navbar-dark p-2">
+                    <a class="navbar-brand font-weight-bold" href="/">Rss2Email</a>
+
+                    <div class="nav-item dropdown">
+                        <a class="nav-link " style="color: white;" href="/user" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge" style="font-size: 1em;">Syl</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/user">
+                                <span style="font-weight:500; ">Syl</span>
+                                <br/>
+                                {{ app.user.email }}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user/settings">Réglages</a>
+                            <a class="dropdown-item" href="/user/status">Status de mes flux</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                Me déconnecter
+                            </a>
+                        </div>
+                    </div>
+                </header>
+            {% endif %}
+            <div class="container"> {% block body %}{% endblock %}
+                </div>
+
+                <footer class="navbar">
+                    Blablabla
+                </footer>
+
+                <script src="{{ asset('assets/app.js') }}"></script>
+                {% block javascripts %}{% endblock %}
+            </body>
+        </html>

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %} {% block title %}Mes préférences -
+{{ parent() }}{% endblock %} {% block body %}
+
+{{ wo_render_breadcrumbs() }}
+
+<h1>Status</h1>
+
+{% for log in logs %}
+<p>{{ log.id }}</p>
+<p><b>Message : </b>{{ log.message }}</p>
+<p><b>Trace</b></p>
+<p>{{ log.trace|split("\n")[0] }}</p>
+{% endfor %} {% endblock %}

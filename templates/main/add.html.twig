@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h1>Ajout d'un feed</h1>
+
+<p><b>URL </b> : {{feed.url}}</p>
+
+<p>Urls détectées :</p>
+
+{{ form_start(form, {attr: {class: 'form'} }) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endblock %}

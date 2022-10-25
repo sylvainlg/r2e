@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <h1>#{{feed.id}}
+        -
+        {{feed.url}}</h2>
+
+    <p>
+        <b>User :
+            {{feed.user.email}}</b>
+    </p>
+    {% if feed.lastUpdate %}
+        <p>Last update:
+            {{feed.lastUpdate|date("d/m/Y H:i:s")}}</p>
+    {% else %}
+        <p>Last update: -</p>
+    {% endif %}
+
+    <p>
+        <a href="/">Home</a>
+    </p>
+
+    {% for it in items %}
+        <hr style="clear:both;">
+
+        <h2>
+            <a target="_blank" href="{{it.link}}">{{it.title}}</a>
+        </h2>
+
+        {% for media in it.medias %}
+            {% if media.url ends with '.mp3' %}
+                <figure>
+                    <figcaption>Flux MP3:</figcaption>
+                    <audio controls src="{{media.url}}">
+                        <a href="{{media.url}}">
+                            Download audio
+                        </a>
+                    </audio>
+                </figure>
+
+            {% else %}
+                <img src="{{media.url}}" style="float:left; width:15%; margin:1.5rem;"/>
+            {% endif %}
+        {% endfor %}
+
+        {% if it.hasElement('content:encoded') %}
+            {% for el in it.getElementIterator('content:encoded') %}
+                <div>{{ el.value|raw }}</div>
+            {% endfor %}
+        {% else %}
+            <div>{{it.content|raw}}</div>
+        {% endif %}
+
+        {#
+                        	<p>Medias :</p>
+                        
+                        	<ul>
+                        		{% for media in it.medias %}
+                        			<li>url : {{media.url}}</li>
+                        		{% endfor %}
+                        	</ul>
+                        
+                        	{#
+                        	<p>Extras :</p>
+                        	<ul>
+                        		{% for el in it.allelements %}
+                        			<li>{{el.name}} : {{el.value}}</li>
+                        		{% endfor %}
+                        	</ul>
+                        	#}
+
+    {% else %}
+
+        <p>Une erreur est survenue lors de la récupération du flux.</p>
+
+        <p>{{ error }}</p>
+
+    {% endfor %}
+
+{% endblock %}

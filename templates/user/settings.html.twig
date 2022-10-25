@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %} {% block title %}Mes préférences -
+{{ parent() }}{% endblock %} {% block body %}
+
+{{ wo_render_breadcrumbs() }}
+
+<h1>Mes préférences</h1>
+
+{# TODO Faire une extension Twig #} {% for label, messages in app.flashes %} {%
+for message in messages %}
+<div class="alert alert-{{ label }}">
+    {{ message }}
+</div>
+{% endfor %} {% endfor %}
+<p></p>
+<h3>
+    Modifiez les informations relatives à votre profil.
+</h3>
+
+{{ form(settings_form) }}
+
+<hr />
+
+<h3>Modifiez votre mot de passe</h3>
+
+{{ form(password_form) }}
+
+{% endblock %}

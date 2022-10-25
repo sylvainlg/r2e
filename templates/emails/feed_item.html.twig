@@ -1,0 +1,25 @@
+<h1>
+    <a href="{{item.link}}">{{item.title}}</a>
+</h1>
+
+{% for media in item.medias %}
+    <img src="{{media.url}}" style="float:left; width:15%; margin:1.5rem;"/>
+{% endfor %}
+
+{% if item.hasElement('content:encoded') %}
+    {% for el in item.getElementIterator('content:encoded') %}
+        <div>{{ el.value|raw }}</div>
+    {% endfor %}
+{% else %}
+    <div>{{item.content|raw}}</div>
+{% endif %}
+
+<p>
+    Url
+    <a href="{{item.link}}">{{item.link}}</a>
+    | Feed
+    <a href="{{feed.link}}">{{feed.link}}</a>
+</p>
+
+<p>Modifié le
+    {{item.lastmodified|date("d/m/Y H:i:s")}}</p>

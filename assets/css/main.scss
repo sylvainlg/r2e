@@ -1,0 +1,15 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+footer {
+    background-color: $primaryColor;
+    color: white;
+}
+
+footer {
+    margin-top: auto;
+}
